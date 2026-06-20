@@ -1,1 +1,319 @@
 
+Import React from 'react';
+
+const MilanApp = () => {
+  return (
+    <div className="bg-[#0f0f12] text-white min-h-screen font-sans">
+      {/* Header */}
+      <header className="p-4 flex justify-between items-center border-b border-gray-800">
+        <h1 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
+          MILAN LIFE
+        </h1>
+        <div className="bg-gray-800 px-3 py-1 rounded-full text-sm font-bold flex items-center">
+          💰 12,450
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <main className="p-4">
+        <div className="bg-gradient-to-br from-pink-600 to-purple-700 p-6 rounded-3xl mb-6 shadow-lg shadow-pink-900/20">
+          <h2 className="text-2xl font-bold">स्वागत है, राजा भैया!</h2>
+          <p className="opacity-80 mt-1">अपने प्रोफाइल को बूस्ट करें और कॉइन्स कमाएं</p>
+          <button className="mt-4 bg-white text-black px-6 py-2 rounded-full font-bold">
+            अभी बूस्ट करें
+          </button>
+        </div>
+
+        {/* Categories Grid */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-gray-900 p-4 rounded-2xl border border-gray-800">
+            <h3 className="font-bold">रील्स फीड</h3>
+            <p className="text-xs text-gray-400">60 सेकंड वीडियो</p>
+          </div>
+          <div className="bg-gray-900 p-4 rounded-2xl border border-gray-800">
+            <h3 className="font-bold">ऑफ़र वॉल</h3>
+            <p className="text-xs text-gray-400">टास्क पूरा करें</p>
+          </div>
+        </div>
+      </main>
+
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 w-full bg-gray-950 border-t border-gray-800 flex justify-around p-4 text-gray-400">
+        <button className="text-pink-500">🏠</button>
+        <button>🚀</button>
+        <button>💬</button>
+        <button>💰</button>
+        <button>👤</button>
+      </nav>
+    </div>
+  );
+};
+
+export default MilanApp;import React from 'react';
+
+const ReelsFeed = () => {
+  // यह एक डमी लिस्ट है, बाद में हम इसे Supabase डेटाबेस से जोड़ेंगे
+  const reels = [1, 2, 3]; 
+
+  return (
+    <div className="bg-black min-h-screen text-white">
+      {/* रील्स का कंटेनर */}
+      {reels.map((item) => (
+        <div key={item} className="h-screen w-full relative snap-start border-b border-gray-800">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 flex flex-col justify-end p-6">
+            <h3 className="font-bold text-lg">@rahul_official</h3>
+            <p className="text-sm">Enjoying the beautiful vibes! #MilanLife #Love</p>
+          </div>
+          
+          {/* यहाँ वीडियो आएगा */}
+          <div className="w-full h-full flex items-center justify-center text-gray-500">
+            वीडियो यहाँ चलेगा...
+          </div>
+
+          {/* राइट साइड एक्शन बटन */}
+          <div className="absolute right-4 bottom-20 flex flex-col gap-6">
+            <button>❤️ 1.2K</button>
+            <button>💬 245</button>
+            <button>🔗 150</button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ReelsFeed;import React, { useState } from 'react';
+
+const Login = () => {
+  const [phone, setPhone] = useState('');
+  const [otp, setOtp] = useState('');
+  const [step, setStep] = useState(1); // 1 = Phone Input, 2 = OTP Input
+
+  return (
+    <div className="bg-[#0f0f12] min-h-screen flex flex-col justify-center items-center p-6 text-white">
+      <h1 className="text-3xl font-bold text-pink-500 mb-8">Milan Life</h1>
+      
+      {step === 1 ? (
+        <div className="w-full max-w-sm">
+          <input 
+            type="tel" 
+            placeholder="अपना मोबाइल नंबर डालें" 
+            className="w-full p-4 rounded-2xl bg-gray-900 border border-gray-700 mb-4"
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <button 
+            onClick={() => setStep(2)}
+            className="w-full bg-pink-600 p-4 rounded-2xl font-bold"
+          >
+            OTP भेजें
+          </button>
+        </div>
+      ) : (
+        <div className="w-full max-w-sm">
+          <input 
+            type="number" 
+            placeholder="OTP दर्ज करें" 
+            className="w-full p-4 rounded-2xl bg-gray-900 border border-gray-700 mb-4"
+            onChange={(e) => setOtp(e.target.value)}
+          />
+          <button className="w-full bg-green-600 p-4 rounded-2xl font-bold">
+            वेरिफाई करें
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Login;import React from 'react';
+
+const Monetization = () => {
+  return (
+    <div className="bg-[#0f0f12] p-6 text-white min-h-screen">
+      <h2 className="text-2xl font-bold mb-6 text-pink-500">Shop & Boost</h2>
+      
+      {/* 1. Coin Package */}
+      <div className="bg-gray-900 p-5 rounded-2xl border border-pink-900 mb-6">
+        <h3 className="text-lg font-bold">Buy 5000 Coins</h3>
+        <p className="text-gray-400 mb-4">Price: ₹150 (Manual UTR Verification)</p>
+        <button className="w-full bg-pink-600 py-3 rounded-xl font-bold">
+          Buy Now (via UTR)
+        </button>
+      </div>
+
+      {/* 2. Boost Options */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-gray-900 p-4 rounded-2xl text-center border border-gray-800">
+          <p className="text-sm">Reels Boost</p>
+          <p className="font-bold text-xl">₹250</p>
+          <p className="text-xs text-gray-400">5K Reach</p>
+        </div>
+        <div className="bg-gray-900 p-4 rounded-2xl text-center border border-gray-800">
+          <p className="text-sm">Top Banner</p>
+          <p className="font-bold text-xl">₹250</p>
+          <p className="text-xs text-gray-400">5K Views</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Monetization;import React from 'react';
+
+const TaskWall = () => {
+  // यह वो लिस्ट है जो बाद में Supabase डेटाबेस से आएगी
+  const tasks = [
+    { id: 1, name: "प्रोफाइल पूरी करें", reward: 50 },
+    { id: 2, name: "3 रील शेयर करें", reward: 100 },
+    { id: 3, name: "रेफरल लिंक भेजें", reward: 200 },
+  ];
+
+  return (
+    <div className="bg-[#0f0f12] p-6 text-white min-h-screen">
+      <h2 className="text-2xl font-bold mb-6 text-pink-500">Offer Wall</h2>
+      <p className="text-gray-400 mb-6">टास्क पूरे करें और ढेर सारे कॉइन्स कमाएं!</p>
+
+      <div className="space-y-4">
+        {tasks.map((task) => (
+          <div key={task.id} className="bg-gray-900 p-4 rounded-2xl flex justify-between items-center border border-gray-800">
+            <div>
+              <h3 className="font-bold">{task.name}</h3>
+              <p className="text-pink-400 text-sm">+{task.reward} Coins</p>
+            </div>
+            <button className="bg-white text-black px-4 py-2 rounded-xl font-bold text-sm">
+              पूरा करें
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default TaskWall;import React from 'react';
+
+const Chat = () => {
+  return (
+    <div className="bg-[#0f0f12] h-screen flex flex-col text-white">
+      {/* Header */}
+      <div className="p-4 border-b border-gray-800 flex items-center">
+        <div className="w-10 h-10 bg-pink-600 rounded-full mr-3"></div>
+        <h3 className="font-bold">Neha Official</h3>
+      </div>
+
+      {/* Chat Area */}
+      <div className="flex-grow p-4 overflow-y-auto">
+        <div className="bg-gray-800 p-3 rounded-2xl mb-4 max-w-[70%]">
+          Hello! How are you?
+        </div>
+        <div className="bg-pink-600 p-3 rounded-2xl mb-4 max-w-[70%] ml-auto">
+          I'm good, what about you?
+        </div>
+      </div>
+
+      {/* Input Field */}
+      <div className="p-4 border-t border-gray-800 flex gap-2">
+        <input 
+          type="text" 
+          placeholder="Message (10 coins/msg)..." 
+          className="flex-grow p-3 rounded-xl bg-gray-900 border border-gray-700"
+        />
+        <button className="bg-pink-600 px-6 py-2 rounded-xl font-bold">Send</button>
+      </div>
+    </div>
+  );
+};
+
+export default Chat;import { createClient } from '@supabase/supabase-js';
+
+// यहाँ अपनी Supabase की API Keys डालें (जो आपको Supabase डैशबोर्ड से मिलेंगी)
+const supabaseUrl = 'YOUR_SUPABASE_PROJECT_URL';
+const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+// यह फंक्शन सिक्कों को अपडेट करेगा (Monetization Logic)
+export const updateCoins = async (userId, newBalance) => {
+  const { data, error } = await supabase
+    .from('profiles')
+    .update({ coins: newBalance })
+    .eq('id', userId);
+  return { data, error };
+};import React from 'react';
+
+const SecurityGuard = ({ content }) => {
+  // यह फंक्शन AI का बेसिक स्ट्रक्चर है जो आपत्तिजनक शब्दों या इमेज को चेक करेगा
+  const checkSafety = (text) => {
+    const offensiveWords = ["abuse", "badword1", "badword2"]; // यहाँ आप लिस्ट बढ़ा सकते हैं
+    return offensiveWords.some(word => text.toLowerCase().includes(word));
+  };
+
+  const isSafe = !checkSafety(content);
+
+  return (
+    <div className="p-4">
+      {isSafe ? (
+        <div className="text-green-500 font-bold">✅ AI Verified: Content is Safe</div>
+      ) : (
+        <div className="text-red-500 font-bold">⚠️ AI Alert: Content Flagged!</div>
+      )}
+    </div>
+  );
+};
+
+export default SecurityGuard;// यह फंक्शन Supabase Edge Function के साथ मिलकर काम करेगा
+export const handleAutomatedTasks = async () => {
+  console.log("System Check: Rotating Banners & Checking Expiry...");
+
+  // 1. 10 मिनट में बैनर रोटेशन का लॉजिक
+  const rotateBanners = async () => {
+    // यहाँ डेटाबेस से बैनर की लिस्ट निकालकर उसे रोटेट किया जाएगा
+    console.log("Rotating Top Banners...");
+  };
+
+  // 2. 30 दिन में सब्सक्रिप्शन एक्सपायरी का चेक
+  const checkExpiry = async () => {
+    // यहाँ डेटाबेस से उन यूजर्स को ढूंढा जाएगा जिनका 30 दिन पूरा हो गया है
+    console.log("Removing Expired Subscriptions...");
+  };
+
+  // दोनों फंक्शन्स को रन करें
+  rotateBanners();
+  checkExpiry();
+};import React, { useState } from 'react';
+
+// यह यूजर को थीम बदलने की शक्ति देगा
+const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState('dark-pink'); // डिफ़ॉल्ट थीम
+
+  return (
+    <div className={theme}>
+      {children}
+      <button onClick={() => setTheme('dark-blue')}>Blue Theme</button>
+      <button onClick={() => setTheme('dark-pink')}>Pink Theme</button>
+    </div>
+  );
+};import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MilanApp from './components/MilanApp';
+import ReelsFeed from './components/ReelsFeed';
+import Login from './components/Login';
+import AdminDashboard from './components/AdminDashboard';
+import Chat from './components/Chat';
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        {/* यह आपकी ऐप के अलग-अलग पेज हैं */}
+        <Route path="/" element={<MilanApp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/reels" element={<ReelsFeed />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;
